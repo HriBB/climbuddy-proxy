@@ -4,8 +4,6 @@ services:
   proxy:
     image: nginxproxy/nginx-proxy
     container_name: nginx-proxy
-    #labels:
-    #  com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
     restart: always
     ports:
       - "80:80"
