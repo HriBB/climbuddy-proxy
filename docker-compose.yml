@@ -5,8 +5,10 @@ services:
     image: nginxproxy/nginx-proxy
     container_name: proxy
     restart: always
+    labels:
+      com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
     ports:
-      #- "80:80"
+      - "80:80"
       - "443:443"
     volumes:
       - conf:/etc/nginx/conf.d
@@ -18,11 +20,13 @@ services:
     networks:
       - proxy
 
-  acme-companion:
+  letsencrypt:
     image: nginxproxy/acme-companion
-    container_name: proxy-acme
+    container_name: letsencrypt
     environment:
       - DEFAULT_EMAIL=bojan@climb.si
+    depends_on:
+      - proxy
     volumes_from:
       - proxy
     volumes:
