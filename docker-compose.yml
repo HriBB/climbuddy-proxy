@@ -1,0 +1,46 @@
+version: "2"
+
+services:
+  proxy:
+    image: nginxproxy/nginx-proxy
+    container_name: proxy
+    restart: always
+    ports:
+      #- "80:80"
+      - "443:443"
+    volumes:
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - certs:/etc/nginx/certs:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    network_mode: bridge
+    networks:
+      - proxy
+
+  acme-companion:
+    image: nginxproxy/acme-companion
+    container_name: proxy-acme
+    environment:
+      - DEFAULT_EMAIL=bojan@climb.si
+    volumes_from:
+      - proxy
+    volumes:
+      - certs:/etc/nginx/certs:rw
+      - acme:/etc/acme.sh
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    network_mode: bridge
+    networks:
+      - proxy
+
+volumes:
+  conf:
+  vhost:
+  html:
+  certs:
+  acme:
+
+networks:
+  proxy:
+    name: proxy
+    driver: bridge
