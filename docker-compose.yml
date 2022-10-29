@@ -2,8 +2,8 @@ version: "2"
 
 services:
   proxy:
+    container_name: proxy
     image: nginxproxy/nginx-proxy
-    container_name: nginx-proxy
     restart: always
     ports:
       - "80:80"
@@ -19,8 +19,8 @@ services:
       - proxy
 
   letsencrypt:
+    container_name: letsencrypt
     image: nginxproxy/acme-companion
-    container_name: nginx-proxy-acme
     restart: always
     environment:
       - DEFAULT_EMAIL=bojan@climb.si
