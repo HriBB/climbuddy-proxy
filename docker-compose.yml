@@ -14,8 +14,8 @@ services:
       - html:/usr/share/nginx/html
       - certs:/etc/nginx/certs:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - /conf.d/my.conf:/etc/nginx/conf.d/my.conf:ro
-      - /vhost.d/api.climb.si:/etc/nginx/vhost.d/api.climb.si:ro
+      - ./conf.d/my.conf:/etc/nginx/conf.d/my.conf:ro
+      - ./vhost.d/api.climb.si:/etc/nginx/vhost.d/api.climb.si:ro
     network_mode: bridge
     networks:
       - proxy
