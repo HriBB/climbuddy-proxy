@@ -13,9 +13,10 @@ services:
       - vhost:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html
       - certs:/etc/nginx/certs:ro
-      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./htpasswd:/etc/nginx/htpasswd:ro
       - ./conf.d/my.conf:/etc/nginx/conf.d/my.conf:ro
       - ./vhost.d/api.climb.si:/etc/nginx/vhost.d/api.climb.si:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro
     network_mode: bridge
     networks:
       - proxy
